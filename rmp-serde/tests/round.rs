@@ -382,3 +382,13 @@ fn round_variant_string() {
     });
     do_test!(|b| Serializer::new(b).with_integer_variants().with_string_variants());
 }
+
+#[test]
+fn roundtrip_ip_addr() {
+    use std::net::{IpAddr, Ipv4Addr};
+
+    let addr = IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1));
+    let addr1: IpAddr = rmps::from_slice(&rmps::to_vec(&addr).unwrap()).unwrap();
+
+    assert_eq!(addr1, addr);
+}
