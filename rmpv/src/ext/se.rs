@@ -257,6 +257,10 @@ impl ser::Serializer for Serializer {
         };
         Ok(se)
     }
+
+    fn is_human_readable(&self) -> bool {
+        false
+    }
 }
 
 pub struct ExtSerializer {
@@ -415,6 +419,10 @@ impl ser::Serializer for &mut ExtSerializer {
 
     fn serialize_struct_variant(self, _name: &'static str, _idx: u32, _variant: &'static str, _len: usize) -> Result<Self::SerializeStructVariant, Error> {
         Err(<Error as ser::Error>::custom("expected tuple, received struct_variant"))
+    }
+
+    fn is_human_readable(&self) -> bool {
+        false
     }
 }
 
@@ -601,6 +609,10 @@ impl ser::Serializer for &mut ExtFieldSerializer {
 
     fn serialize_struct_variant(self, _name: &'static str, _idx: u32, _variant: &'static str, _len: usize) -> Result<Self::SerializeStructVariant, Error> {
         Err(<Error as ser::Error>::custom("expected i8 and bytes, received struct_variant"))
+    }
+
+    fn is_human_readable(&self) -> bool {
+        false
     }
 }
 

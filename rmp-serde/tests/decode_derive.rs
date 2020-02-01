@@ -274,6 +274,10 @@ fn pass_enum_custom_policy() {
             visitor.visit(VariantVisitor::new(&mut self.inner))
         }
 
+        fn is_human_readable(&self) -> bool {
+            false
+        }
+
         forward_to_deserialize! {
             bool usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 char str string unit seq
             seq_fixed_size bytes map tuple_struct unit_struct struct struct_field

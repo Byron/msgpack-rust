@@ -741,6 +741,10 @@ impl<'a, W: Write + 'a> serde::Serializer for &mut ExtFieldSerializer<'a, W> {
     fn serialize_struct_variant(self, _name: &'static str, _idx: u32, _variant: &'static str, _len: usize) -> Result<Self::SerializeStructVariant, Error> {
         Err(Error::InvalidDataModel("expected i8 and bytes, struct variant unexpected"))
     }
+
+    fn is_human_readable(&self) -> bool {
+        false
+    }
 }
 
 impl<'a, W: Write + 'a> serde::ser::Serializer for &mut ExtSerializer<'a, W> {
@@ -895,6 +899,10 @@ impl<'a, W: Write + 'a> serde::ser::Serializer for &mut ExtSerializer<'a, W> {
 
     fn serialize_struct_variant(self, _name: &'static str, _idx: u32, _variant: &'static str, _len: usize) -> Result<Self::SerializeStructVariant, Error> {
         Err(Error::InvalidDataModel("expected tuple, received struct_variant"))
+    }
+
+    fn is_human_readable(&self) -> bool {
+        false
     }
 }
 
